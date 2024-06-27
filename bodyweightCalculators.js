@@ -37,27 +37,29 @@ function calculateRoutine(type) {
         estimatedMaxElement = document.getElementById("estimatedMaxAirSquat");
     }
 
-    if (isNaN(currentMax) || currentMax < 0) {
+    if (isNaN(currentMax) || currentMax <= 0) {
         alert("Please enter a valid number for the current max reps.");
         return;
     }
 
-    if (isNaN(goal) || goal < currentMax) {
-        goal = Math.round(currentMax * 1.2); // Default goal if not set or invalid
-    }
-
-    let routine = generateRoutine(currentMax, goal, type);
-    let estimatedNewMax = calculateEstimatedMax(currentMax, goal);
+    let estimatedNewMax = calculateEstimatedMax(currentMax);
+    let routine = generateRoutine(currentMax, estimatedNewMax, type);
     
     estimatedMaxElement.innerHTML = `Estimated new max after 4 weeks: ${estimatedNewMax} reps`;
+    
+    if (!isNaN(goal) && goal > currentMax) {
+        let weeksToGoal = calculateWeeksToGoal(currentMax, goal);
+        estimatedMaxElement.innerHTML += `<br>Estimated time to reach goal of ${goal} reps: ${weeksToGoal} weeks`;
+    }
+    
     routineElement.innerHTML = routine;
 }
 
-function generateRoutine(currentMax, goal, type) {
+function generateRoutine(currentMax, targetMax, type) {
     let routine = `<h3>4-Week ${type.charAt(0).toUpperCase() + type.slice(1)} Progression Plan</h3>`;
     routine += "<ul>";
 
-    const weeklyIncrement = (goal - currentMax) / 4;
+    const weeklyIncrement = (targetMax - currentMax) / 4;
 
     for (let week = 1; week <= 4; week++) {
         routine += `<li>Week ${week}<ul>`;
@@ -84,9 +86,13 @@ function generateRoutine(currentMax, goal, type) {
     return routine;
 }
 
-function calculateEstimatedMax(currentMax, goal) {
-    // Using a more conservative estimate based on scientific literature
+function calculateEstimatedMax(currentMax) {
     const weeklyGainPercentage = 0.05; // 5% weekly gain
-    const estimatedNewMax = Math.round(currentMax * Math.pow(1 + weeklyGainPercentage, 4));
-    return Math.min(estimatedNewMax, goal); // Ensure it doesn't exceed the goal
+    return Math.round(currentMax * Math.pow(1 + weeklyGainPercentage, 4));
+}
+
+function calculateWeeksToGoal(currentMax, goal) {
+    const weeklyGainPercentage = 0.05; // 5% weekly gain
+    const weeksToGoal = Math.ceil(Math.log(goal / currentMax) / Math.log(1 + weeklyGainPercentage));
+    return weeksToGoal;
 }
