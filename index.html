@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bodyweight Progression Program</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bodyweight Progression Program</h1>
+        <nav>
+            <button id="navPushUp" onclick="showCalculator('pushUp')">Push-Up Progression</button>
+            <button id="navPullUp" onclick="showCalculator('pullUp')">Pull-Up Progression</button>
+            <button id="navAirSquat" onclick="showCalculator('airSquat')">Air Squat Progression</button>
+        </nav>
+
+        <div id="calculatorContainer">
+            <div id="pushUpContainer" style="display: none;">
+                <h2>Push-Up Progression Calculator</h2>
+                <form id="pushUpForm">
+                    <label for="currentMaxPushUp">Current Max Push-Up Reps:</label>
+                    <input type="number" id="currentMaxPushUp" name="currentMaxPushUp" required>
+                    <input type="button" value="Generate Program" onclick="calculateRoutine('pushUp')">
+                </form>
+                <div id="estimatedMaxPushUp" class="estimated-max"></div>
+                <div id="workoutRoutinePushUp" class="workout-routine"></div>
+            </div>
+
+            <div id="pullUpContainer" style="display: none;">
+                <h2>Pull-Up Progression Calculator</h2>
+                <form id="pullUpForm">
+                    <label for="currentMaxPullUp">Current Max Pull-Up Reps:</label>
+                    <input type="number" id="currentMaxPullUp" name="currentMaxPullUp" required>
+                    <input type="button" value="Generate Program" onclick="calculateRoutine('pullUp')">
+                </form>
+                <div id="estimatedMaxPullUp" class="estimated-max"></div>
+                <div id="workoutRoutinePullUp" class="workout-routine"></div>
+            </div>
+
+            <div id="airSquatContainer" style="display: none;">
+                <h2>Air Squat Progression Calculator</h2>
+                <form id="airSquatForm">
+                    <label for="currentMaxAirSquat">Current Max Air Squat Reps:</label>
+                    <input type="number" id="currentMaxAirSquat" name="currentMaxAirSquat" required>
+                    <input type="button" value="Generate Program" onclick="calculateRoutine('airSquat')">
+                </form>
+                <div id="estimatedMaxAirSquat" class="estimated-max"></div>
+                <div id="workoutRoutineAirSquat" class="workout-routine"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="bodyweightCalculators.js"></script>
+</body>
+</html>
