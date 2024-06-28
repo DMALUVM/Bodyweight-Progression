@@ -19,22 +19,25 @@ function showCalculator(type) {
 
 function calculateRoutine(type) {
     let currentMax, goal;
-    let routineElement, estimatedMaxElement;
+    let routineElement, estimatedMaxElement, estimatedTimeElement;
     if (type === 'pushUp') {
         currentMax = parseInt(document.getElementById("currentMaxPushUp").value);
         goal = parseInt(document.getElementById("pushUpGoal").value);
         routineElement = document.getElementById("workoutRoutinePushUp");
         estimatedMaxElement = document.getElementById("estimatedMaxPushUp");
+        estimatedTimeElement = document.getElementById("estimatedTimePushUp");
     } else if (type === 'pullUp') {
         currentMax = parseInt(document.getElementById("currentMaxPullUp").value);
         goal = parseInt(document.getElementById("pullUpGoal").value);
         routineElement = document.getElementById("workoutRoutinePullUp");
         estimatedMaxElement = document.getElementById("estimatedMaxPullUp");
+        estimatedTimeElement = document.getElementById("estimatedTimePullUp");
     } else if (type === 'airSquat') {
         currentMax = parseInt(document.getElementById("currentMaxAirSquat").value);
         goal = parseInt(document.getElementById("airSquatGoal").value);
         routineElement = document.getElementById("workoutRoutineAirSquat");
         estimatedMaxElement = document.getElementById("estimatedMaxAirSquat");
+        estimatedTimeElement = document.getElementById("estimatedTimeAirSquat");
     }
 
     if (isNaN(currentMax) || currentMax <= 0) {
@@ -49,7 +52,9 @@ function calculateRoutine(type) {
     
     if (!isNaN(goal) && goal > currentMax) {
         let weeksToGoal = calculateWeeksToGoal(currentMax, goal);
-        estimatedMaxElement.innerHTML += `<br>Estimated time to reach goal of ${goal} reps: ${weeksToGoal} weeks`;
+        estimatedTimeElement.innerHTML = `Estimated time to reach goal of ${goal} reps: ${weeksToGoal} weeks`;
+    } else {
+        estimatedTimeElement.innerHTML = '';
     }
     
     routineElement.innerHTML = routine;
