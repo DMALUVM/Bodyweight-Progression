@@ -84,7 +84,19 @@
         form input[type="button"]:hover {
             background-color: var(--secondary-color);
         }
-        .estimated-max, .workout-routine {
+        .results-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .estimated-max, .estimated-time {
+            padding: 15px;
+            background-color: #f1f3f5;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .workout-routine {
             margin-top: 20px;
             padding: 20px;
             background-color: #f1f3f5;
@@ -102,10 +114,17 @@
         }
         @media (max-width: 600px) {
             .container {
-                padding: 20px;
+                padding: 15px;
             }
             nav button {
                 width: 100%;
+            }
+            .results-container {
+                flex-direction: column;
+            }
+            .estimated-max, .estimated-time {
+                width: 100%;
+                box-sizing: border-box;
             }
         }
     </style>
@@ -129,7 +148,10 @@
                     <input type="number" id="pushUpGoal" name="pushUpGoal" min="1">
                     <input type="button" value="Generate Program" onclick="calculateRoutine('pushUp')">
                 </form>
-                <div id="estimatedMaxPushUp" class="estimated-max"></div>
+                <div class="results-container">
+                    <div id="estimatedMaxPushUp" class="estimated-max"></div>
+                    <div id="estimatedTimePushUp" class="estimated-time"></div>
+                </div>
                 <div id="workoutRoutinePushUp" class="workout-routine"></div>
                 <div class="info-box">
                     <h3>Push-Up Form Tips</h3>
@@ -151,7 +173,10 @@
                     <input type="number" id="pullUpGoal" name="pullUpGoal" min="1">
                     <input type="button" value="Generate Program" onclick="calculateRoutine('pullUp')">
                 </form>
-                <div id="estimatedMaxPullUp" class="estimated-max"></div>
+                <div class="results-container">
+                    <div id="estimatedMaxPullUp" class="estimated-max"></div>
+                    <div id="estimatedTimePullUp" class="estimated-time"></div>
+                </div>
                 <div id="workoutRoutinePullUp" class="workout-routine"></div>
                 <div class="info-box">
                     <h3>Pull-Up Form Tips</h3>
@@ -159,35 +184,4 @@
                         <li>Start with arms fully extended and shoulders engaged</li>
                         <li>Pull yourself up until your chin is over the bar</li>
                         <li>Lower yourself with control</li>
-                        <li>Avoid swinging or using momentum</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div id="airSquatContainer" style="display: none;">
-                <h2>Air Squat Progression Calculator</h2>
-                <form id="airSquatForm">
-                    <label for="currentMaxAirSquat">Current Max Air Squat Reps:</label>
-                    <input type="number" id="currentMaxAirSquat" name="currentMaxAirSquat" min="1" required>
-                    <label for="airSquatGoal">Goal (optional):</label>
-                    <input type="number" id="airSquatGoal" name="airSquatGoal" min="1">
-                    <input type="button" value="Generate Program" onclick="calculateRoutine('airSquat')">
-                </form>
-                <div id="estimatedMaxAirSquat" class="estimated-max"></div>
-                <div id="workoutRoutineAirSquat" class="workout-routine"></div>
-                <div class="info-box">
-                    <h3>Air Squat Form Tips</h3>
-                    <ul>
-                        <li>Keep your feet shoulder-width apart</li>
-                        <li>Lower your hips until they're parallel with your knees</li>
-                        <li>Keep your chest up and core engaged</li>
-                        <li>Push through your heels to stand back up</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="bodyweightCalculators.js"></script>
-</body>
-</html>
+                        <li>Avoid swinging or
