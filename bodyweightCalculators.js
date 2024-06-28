@@ -101,3 +101,8 @@ function calculateWeeksToGoal(currentMax, goal) {
     const weeksToGoal = Math.ceil(Math.log(goal / currentMax) / Math.log(1 + weeklyGainPercentage));
     return weeksToGoal;
 }
+
+// Initialize the page with the Push-Up calculator visible
+document.addEventListener('DOMContentLoaded', function() {
+    showCalculator('pushUp');
+});
