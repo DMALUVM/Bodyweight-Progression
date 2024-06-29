@@ -5,57 +5,33 @@ function showCalculator(type) {
     document.getElementById('navPushUp').classList.remove('active');
     document.getElementById('navPullUp').classList.remove('active');
     document.getElementById('navAirSquat').classList.remove('active');
-    if (type === 'pushUp') {
-        document.getElementById('pushUpContainer').style.display = 'block';
-        document.getElementById('navPushUp').classList.add('active');
-    } else if (type === 'pullUp') {
-        document.getElementById('pullUpContainer').style.display = 'block';
-        document.getElementById('navPullUp').classList.add('active');
-    } else if (type === 'airSquat') {
-        document.getElementById('airSquatContainer').style.display = 'block';
-        document.getElementById('navAirSquat').classList.add('active');
-    }
+
+    document.getElementById(`${type}Container`).style.display = 'block';
+    document.getElementById(`nav${type.charAt(0).toUpperCase() + type.slice(1)}`).classList.add('active');
 }
 
 function calculateRoutine(type) {
-    let currentMax, goal, useWeightVest;
-    let routineElement, estimatedMaxElement, estimatedTimeElement;
-    if (type === 'pushUp') {
-        currentMax = parseInt(document.getElementById("currentMaxPushUp").value);
-        goal = parseInt(document.getElementById("pushUpGoal").value);
-        useWeightVest = document.getElementById("weightVestPushUp").checked;
-        routineElement = document.getElementById("workoutRoutinePushUp");
-        estimatedMaxElement = document.getElementById("estimatedMaxPushUp");
-        estimatedTimeElement = document.getElementById("estimatedTimePushUp");
-    } else if (type === 'pullUp') {
-        currentMax = parseInt(document.getElementById("currentMaxPullUp").value);
-        goal = parseInt(document.getElementById("pullUpGoal").value);
-        useWeightVest = document.getElementById("weightVestPullUp").checked;
-        routineElement = document.getElementById("workoutRoutinePullUp");
-        estimatedMaxElement = document.getElementById("estimatedMaxPullUp");
-        estimatedTimeElement = document.getElementById("estimatedTimePullUp");
-    } else if (type === 'airSquat') {
-        currentMax = parseInt(document.getElementById("currentMaxAirSquat").value);
-        goal = parseInt(document.getElementById("airSquatGoal").value);
-        useWeightVest = document.getElementById("weightVestAirSquat").checked;
-        routineElement = document.getElementById("workoutRoutineAirSquat");
-        estimatedMaxElement = document.getElementById("estimatedMaxAirSquat");
-        estimatedTimeElement = document.getElementById("estimatedTimeAirSquat");
-    }
+    const currentMax = parseInt(document.getElementById(`currentMax${capitalize(type)}`).value);
+    const goal = parseInt(document.getElementById(`${type}Goal`).value);
+    const useWeightVest = document.getElementById(`weightVest${capitalize(type)}`).checked;
+
+    const routineElement = document.getElementById(`workoutRoutine${capitalize(type)}`);
+    const estimatedMaxElement = document.getElementById(`estimatedMax${capitalize(type)}`);
+    const estimatedTimeElement = document.getElementById(`estimatedTime${capitalize(type)}`);
 
     if (isNaN(currentMax) || currentMax <= 0) {
         alert("Please enter a valid number for the current max reps (without weight vest).");
         return;
     }
 
-    let adjustedCurrentMax = useWeightVest ? adjustForWeightVest(currentMax) : currentMax;
-    let estimatedNewMax = calculateEstimatedMax(adjustedCurrentMax);
-    let routine = generateRoutine(adjustedCurrentMax, estimatedNewMax, type, useWeightVest);
+    const adjustedCurrentMax = useWeightVest ? adjustForWeightVest(currentMax) : currentMax;
+    const estimatedNewMax = calculateEstimatedMax(adjustedCurrentMax);
+    const routine = generateRoutine(adjustedCurrentMax, estimatedNewMax, type, useWeightVest);
     
     estimatedMaxElement.innerHTML = `Estimated new max after 4 weeks: ${estimatedNewMax} reps ${useWeightVest ? 'with weight vest' : 'without weight vest'}`;
     
     if (!isNaN(goal) && goal > currentMax) {
-        let weeksToGoal = calculateWeeksToGoal(adjustedCurrentMax, goal);
+        const weeksToGoal = calculateWeeksToGoal(adjustedCurrentMax, goal);
         estimatedTimeElement.innerHTML = `Estimated time to reach goal of ${goal} reps: ${weeksToGoal} weeks`;
     } else {
         estimatedTimeElement.innerHTML = '';
@@ -65,7 +41,7 @@ function calculateRoutine(type) {
 }
 
 function generateRoutine(currentMax, targetMax, type, useWeightVest) {
-    let routine = `<h3>4-Week ${type.charAt(0).toUpperCase() + type.slice(1)} Progression Plan</h3>`;
+    let routine = `<h3>4-Week ${capitalize(type)} Progression Plan</h3>`;
     if (useWeightVest) {
         routine += "<p><strong>Using 20 lb Weight Vest</strong></p>";
         routine += "<p>Note: The current max and goal are based on reps without the weight vest. The routine adjusts for the added difficulty.</p>";
@@ -76,7 +52,7 @@ function generateRoutine(currentMax, targetMax, type, useWeightVest) {
 
     for (let week = 1; week <= 4; week++) {
         routine += `<li>Week ${week}<ul>`;
-        let weeklyMax = Math.round(currentMax + (weeklyIncrement * (week - 1)));
+        const weeklyMax = Math.round(currentMax + (weeklyIncrement * (week - 1)));
 
         for (let day = 1; day <= 3; day++) {
             let sets, reps;
@@ -110,8 +86,11 @@ function calculateEstimatedMax(currentMax) {
 
 function calculateWeeksToGoal(currentMax, goal) {
     const weeklyGainPercentage = 0.05; // 5% weekly gain
-    const weeksToGoal = Math.ceil(Math.log(goal / currentMax) / Math.log(1 + weeklyGainPercentage));
-    return weeksToGoal;
+    return Math.ceil(Math.log(goal / currentMax) / Math.log(1 + weeklyGainPercentage));
+}
+
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 // Initialize the page with the Push-Up calculator visible
