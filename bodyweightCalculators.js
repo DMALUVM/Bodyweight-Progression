@@ -44,17 +44,18 @@ function calculateRoutine(type) {
     }
 
     if (isNaN(currentMax) || currentMax <= 0) {
-        alert("Please enter a valid number for the current max reps.");
+        alert("Please enter a valid number for the current max reps (without weight vest).");
         return;
     }
 
-    let estimatedNewMax = calculateEstimatedMax(currentMax, useWeightVest);
-    let routine = generateRoutine(currentMax, estimatedNewMax, type, useWeightVest);
+    let adjustedCurrentMax = useWeightVest ? adjustForWeightVest(currentMax) : currentMax;
+    let estimatedNewMax = calculateEstimatedMax(adjustedCurrentMax);
+    let routine = generateRoutine(adjustedCurrentMax, estimatedNewMax, type, useWeightVest);
     
-    estimatedMaxElement.innerHTML = `Estimated new max after 4 weeks: ${estimatedNewMax} reps`;
+    estimatedMaxElement.innerHTML = `Estimated new max after 4 weeks: ${estimatedNewMax} reps ${useWeightVest ? 'with weight vest' : 'without weight vest'}`;
     
     if (!isNaN(goal) && goal > currentMax) {
-        let weeksToGoal = calculateWeeksToGoal(currentMax, goal, useWeightVest);
+        let weeksToGoal = calculateWeeksToGoal(adjustedCurrentMax, goal);
         estimatedTimeElement.innerHTML = `Estimated time to reach goal of ${goal} reps: ${weeksToGoal} weeks`;
     } else {
         estimatedTimeElement.innerHTML = '';
@@ -67,6 +68,7 @@ function generateRoutine(currentMax, targetMax, type, useWeightVest) {
     let routine = `<h3>4-Week ${type.charAt(0).toUpperCase() + type.slice(1)} Progression Plan</h3>`;
     if (useWeightVest) {
         routine += "<p><strong>Using 20 lb Weight Vest</strong></p>";
+        routine += "<p>Note: The current max and goal are based on reps without the weight vest. The routine adjusts for the added difficulty.</p>";
     }
     routine += "<ul>";
 
@@ -97,27 +99,21 @@ function generateRoutine(currentMax, targetMax, type, useWeightVest) {
     return routine;
 }
 
-function calculateEstimatedMax(currentMax, useWeightVest) {
-    let weeklyGainPercentage = 0.05; // 5% weekly gain
-    if (useWeightVest) {
-        weeklyGainPercentage = 0.07; // 7% weekly gain with weight vest
-    }
+function adjustForWeightVest(currentMax) {
+    return Math.round(currentMax * 0.7); // Assume 30% reduction in reps with weight vest
+}
+
+function calculateEstimatedMax(currentMax) {
+    const weeklyGainPercentage = 0.05; // 5% weekly gain
     return Math.round(currentMax * Math.pow(1 + weeklyGainPercentage, 4));
 }
 
-function calculateWeeksToGoal(currentMax, goal, useWeightVest) {
-    let weeklyGainPercentage = 0.05; // 5% weekly gain
-    if (useWeightVest) {
-        weeklyGainPercentage = 0.07; // 7% weekly gain with weight vest
-    }
+function calculateWeeksToGoal(currentMax, goal) {
+    const weeklyGainPercentage = 0.05; // 5% weekly gain
     const weeksToGoal = Math.ceil(Math.log(goal / currentMax) / Math.log(1 + weeklyGainPercentage));
     return weeksToGoal;
 }
 
-// Initialize the page with the Push-Up calculator visible
-document.addEventListener('DOMContentLoaded', function() {
-    showCalculator('pushUp');
-});
 // Initialize the page with the Push-Up calculator visible
 document.addEventListener('DOMContentLoaded', function() {
     showCalculator('pushUp');
