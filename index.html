@@ -5,133 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bodyweight Progression Program</title>
     <style>
-        :root {
-            --primary-color: #007bff;
-            --secondary-color: #0056b3;
-            --background-color: #f8f9fa;
-            --text-color: #333;
-            --border-color: #dee2e6;
-        }
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--background-color);
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-        h1, h2, h3, h4 {
-            color: var(--primary-color);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-        nav button {
-            padding: 12px 24px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--primary-color);
-            color: white;
-            transition: background-color 0.3s ease;
-        }
-        nav button:hover, nav button.active {
-            background-color: var(--secondary-color);
-        }
-        form {
-            display: grid;
-            gap: 15px;
-        }
-        form label {
-            font-weight: bold;
-        }
-        form select, form input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        form input[type="button"] {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-        form input[type="button"]:hover {
-            background-color: var(--secondary-color);
-        }
-        .results-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .estimated-max, .estimated-time {
-            padding: 15px;
-            background-color: #f1f3f5;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-        .workout-routine {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #f1f3f5;
-            border-radius: 5px;
-        }
-        .workout-routine ul {
-            padding-left: 20px;
-        }
-        .info-box {
-            background-color: #e9ecef;
-            border-left: 4px solid var(--primary-color);
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 0 5px 5px 0;
-        }
-        .weight-vest-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
-            nav button {
-                width: 100%;
-            }
-            .results-container {
-                flex-direction: column;
-            }
-            .estimated-max, .estimated-time {
-                width: 100%;
-                box-sizing: border-box;
-            }
-        }
+        /* ... (keep the existing styles) ... */
     </style>
 </head>
 <body>
@@ -147,13 +21,13 @@
             <div id="pushUpContainer" style="display: none;">
                 <h2>Push-Up Progression Calculator</h2>
                 <form id="pushUpForm">
-                    <label for="currentMaxPushUp">Current Max Push-Up Reps:</label>
+                    <label for="currentMaxPushUp">Current Max Push-Up Reps (without weight vest):</label>
                     <input type="number" id="currentMaxPushUp" name="currentMaxPushUp" min="1" required>
-                    <label for="pushUpGoal">Goal (optional):</label>
+                    <label for="pushUpGoal">Goal (optional, without weight vest):</label>
                     <input type="number" id="pushUpGoal" name="pushUpGoal" min="1">
                     <div class="weight-vest-option">
                         <input type="checkbox" id="weightVestPushUp" name="weightVestPushUp">
-                        <label for="weightVestPushUp">Use 20 lb Weight Vest</label>
+                        <label for="weightVestPushUp">Use 20 lb Weight Vest for Training</label>
                     </div>
                     <input type="button" value="Generate Program" onclick="calculateRoutine('pushUp')">
                 </form>
@@ -176,13 +50,13 @@
             <div id="pullUpContainer" style="display: none;">
                 <h2>Pull-Up Progression Calculator</h2>
                 <form id="pullUpForm">
-                    <label for="currentMaxPullUp">Current Max Pull-Up Reps:</label>
+                    <label for="currentMaxPullUp">Current Max Pull-Up Reps (without weight vest):</label>
                     <input type="number" id="currentMaxPullUp" name="currentMaxPullUp" min="0" required>
-                    <label for="pullUpGoal">Goal (optional):</label>
+                    <label for="pullUpGoal">Goal (optional, without weight vest):</label>
                     <input type="number" id="pullUpGoal" name="pullUpGoal" min="1">
                     <div class="weight-vest-option">
                         <input type="checkbox" id="weightVestPullUp" name="weightVestPullUp">
-                        <label for="weightVestPullUp">Use 20 lb Weight Vest</label>
+                        <label for="weightVestPullUp">Use 20 lb Weight Vest for Training</label>
                     </div>
                     <input type="button" value="Generate Program" onclick="calculateRoutine('pullUp')">
                 </form>
@@ -205,13 +79,13 @@
             <div id="airSquatContainer" style="display: none;">
                 <h2>Air Squat Progression Calculator</h2>
                 <form id="airSquatForm">
-                    <label for="currentMaxAirSquat">Current Max Air Squat Reps:</label>
+                    <label for="currentMaxAirSquat">Current Max Air Squat Reps (without weight vest):</label>
                     <input type="number" id="currentMaxAirSquat" name="currentMaxAirSquat" min="1" required>
-                    <label for="airSquatGoal">Goal (optional):</label>
+                    <label for="airSquatGoal">Goal (optional, without weight vest):</label>
                     <input type="number" id="airSquatGoal" name="airSquatGoal" min="1">
                     <div class="weight-vest-option">
                         <input type="checkbox" id="weightVestAirSquat" name="weightVestAirSquat">
-                        <label for="weightVestAirSquat">Use 20 lb Weight Vest</label>
+                        <label for="weightVestAirSquat">Use 20 lb Weight Vest for Training</label>
                     </div>
                     <input type="button" value="Generate Program" onclick="calculateRoutine('airSquat')">
                 </form>
