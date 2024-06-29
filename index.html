@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bodyweight Progression Program</title>
+    <title>Evidence-Based Bodyweight Progression Program</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -81,7 +81,7 @@
             font-weight: bold;
         }
         
-        form input[type="number"] {
+        form input[type="number"], form select {
             width: 100%;
             padding: 10px;
             border: 1px solid var(--border-color);
@@ -153,6 +153,12 @@
             border-radius: 0 5px 5px 0;
         }
         
+        .disclaimer {
+            font-style: italic;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
@@ -179,7 +185,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Bodyweight Progression Program</h1>
+        <h1>Evidence-Based Bodyweight Progression Program</h1>
         <nav>
             <button id="navPushUp" onclick="showCalculator('pushUp')">Push-Up Progression</button>
             <button id="navPullUp" onclick="showCalculator('pullUp')">Pull-Up Progression</button>
@@ -194,6 +200,12 @@
                     <input type="number" id="currentMaxPushUp" name="currentMaxPushUp" min="1" required>
                     <label for="pushUpGoal">Goal (optional, without weight vest):</label>
                     <input type="number" id="pushUpGoal" name="pushUpGoal" min="1">
+                    <label for="pushUpVariation">Push-Up Variation:</label>
+                    <select id="pushUpVariation" name="pushUpVariation">
+                        <option value="standard">Standard Push-Up</option>
+                        <option value="diamond">Diamond Push-Up</option>
+                        <option value="wide">Wide Push-Up</option>
+                    </select>
                     <div class="weight-vest-option">
                         <input type="checkbox" id="weightVestPushUp" name="weightVestPushUp">
                         <label for="weightVestPushUp">Use 20 lb Weight Vest for Training</label>
@@ -223,6 +235,12 @@
                     <input type="number" id="currentMaxPullUp" name="currentMaxPullUp" min="0" required>
                     <label for="pullUpGoal">Goal (optional, without weight vest):</label>
                     <input type="number" id="pullUpGoal" name="pullUpGoal" min="1">
+                    <label for="pullUpVariation">Pull-Up Variation:</label>
+                    <select id="pullUpVariation" name="pullUpVariation">
+                        <option value="standard">Standard Pull-Up</option>
+                        <option value="chinUp">Chin-Up</option>
+                        <option value="neutral">Neutral Grip Pull-Up</option>
+                    </select>
                     <div class="weight-vest-option">
                         <input type="checkbox" id="weightVestPullUp" name="weightVestPullUp">
                         <label for="weightVestPullUp">Use 20 lb Weight Vest for Training</label>
@@ -252,6 +270,12 @@
                     <input type="number" id="currentMaxAirSquat" name="currentMaxAirSquat" min="1" required>
                     <label for="airSquatGoal">Goal (optional, without weight vest):</label>
                     <input type="number" id="airSquatGoal" name="airSquatGoal" min="1">
+                    <label for="airSquatVariation">Squat Variation:</label>
+                    <select id="airSquatVariation" name="airSquatVariation">
+                        <option value="standard">Standard Air Squat</option>
+                        <option value="jumpSquat">Jump Squat</option>
+                        <option value="bulgarianSplit">Bulgarian Split Squat</option>
+                    </select>
                     <div class="weight-vest-option">
                         <input type="checkbox" id="weightVestAirSquat" name="weightVestAirSquat">
                         <label for="weightVestAirSquat">Use 20 lb Weight Vest for Training</label>
@@ -273,6 +297,9 @@
                     </ul>
                 </div>
             </div>
+        </div>
+        <div class="disclaimer">
+            <p>Disclaimer: This program is based on general strength and conditioning principles. Individual results may vary. Always listen to your body and consult with a fitness professional or healthcare provider before starting any new exercise program.</p>
         </div>
     </div>
 
