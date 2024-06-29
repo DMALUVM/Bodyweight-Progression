@@ -112,6 +112,11 @@
             margin-top: 20px;
             border-radius: 0 5px 5px 0;
         }
+        .weight-vest-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         @media (max-width: 600px) {
             .container {
                 padding: 15px;
@@ -146,6 +151,10 @@
                     <input type="number" id="currentMaxPushUp" name="currentMaxPushUp" min="1" required>
                     <label for="pushUpGoal">Goal (optional):</label>
                     <input type="number" id="pushUpGoal" name="pushUpGoal" min="1">
+                    <div class="weight-vest-option">
+                        <input type="checkbox" id="weightVestPushUp" name="weightVestPushUp">
+                        <label for="weightVestPushUp">Use 20 lb Weight Vest</label>
+                    </div>
                     <input type="button" value="Generate Program" onclick="calculateRoutine('pushUp')">
                 </form>
                 <div class="results-container">
@@ -171,6 +180,10 @@
                     <input type="number" id="currentMaxPullUp" name="currentMaxPullUp" min="0" required>
                     <label for="pullUpGoal">Goal (optional):</label>
                     <input type="number" id="pullUpGoal" name="pullUpGoal" min="1">
+                    <div class="weight-vest-option">
+                        <input type="checkbox" id="weightVestPullUp" name="weightVestPullUp">
+                        <label for="weightVestPullUp">Use 20 lb Weight Vest</label>
+                    </div>
                     <input type="button" value="Generate Program" onclick="calculateRoutine('pullUp')">
                 </form>
                 <div class="results-container">
@@ -196,6 +209,10 @@
                     <input type="number" id="currentMaxAirSquat" name="currentMaxAirSquat" min="1" required>
                     <label for="airSquatGoal">Goal (optional):</label>
                     <input type="number" id="airSquatGoal" name="airSquatGoal" min="1">
+                    <div class="weight-vest-option">
+                        <input type="checkbox" id="weightVestAirSquat" name="weightVestAirSquat">
+                        <label for="weightVestAirSquat">Use 20 lb Weight Vest</label>
+                    </div>
                     <input type="button" value="Generate Program" onclick="calculateRoutine('airSquat')">
                 </form>
                 <div class="results-container">
